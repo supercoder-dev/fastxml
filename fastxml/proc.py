@@ -46,8 +46,10 @@ def faux_fork_call(f):
 def fork_call(f):
     def f2(*args):
         queue = multiprocessing.Queue(1)
-        p = multiprocessing.Process(target=_remote_call, args=(queue, f, args))
-        p.start()
+        ctx = multiprocessing.get_context('fork')
+        p = ctx.Process(target=_remote_call, args=(queue, f, args))
+        if __name__ == '__main__':
+            p.start()
         return ForkResult(queue, p)
 
     return f2
