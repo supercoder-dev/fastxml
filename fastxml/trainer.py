@@ -462,7 +462,8 @@ class Trainer(object):
         return Tree(rootIdx, W_stack, b, t, probs)
 
     def fit(self, X, y, weights=None):
-        self.roots = self._build_roots(X, y, weights)
+        if __name__ == '__main__':
+            self.roots = self._build_roots(X, y, weights)
         if self.leaf_classifiers:
             self.norms_, self.uxs_, self.xr_ = self._compute_leaf_probs(X, y)
 
